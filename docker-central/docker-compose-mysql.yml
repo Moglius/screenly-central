@@ -1,0 +1,29 @@
+version: "2"
+services:
+  db:
+    container_name: db
+    image: docker-screenly-central
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=screenly
+      - MYSQL_USER=screenly
+      - MYSQL_PASSWORD=screenly
+    volumes:
+      - ./db:/var/lib/mysql
+  docker-screenly-central:
+    container_name: docker-screenly-central
+    image: docker-screenly-central
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode: "host"
+    privileged: true
+    volumes:
+      - $PWD:/usr/src/screen-central
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=screenly
+      - MYSQL_PASSWORD=screenly
+      - MYSQL_DB=screenly

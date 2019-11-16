@@ -1,0 +1,15 @@
+version: "2"
+services:
+  docker-scanfiles:
+    container_name: docker-scanfiles
+    image: docker-scanfiles
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode: "host"
+    privileged: true
+    environment:
+      - SCANTIME=60
+    volumes:
+      - $PWD:/usr/src/screen-scanfiles
+      - /var/www/html/data/2D57CDDE-8EF2-4194-A8C2-21EE110E64A3/files/videos:/var/www/html/videos

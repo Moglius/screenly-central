@@ -1,0 +1,83 @@
+{% extends 'admin/master.html' %}
+
+{% block head_css %}
+{{ super() }}
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+{% endblock %}
+
+
+{% block body %}
+
+<div id="links">
+
+</div>
+
+<table class="table" id="screen-table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Remote</th>
+    </tr>
+  </thead>
+  <tbody class="dynamic">
+    {% for device in devices %}
+        <tr>
+              <td>{{ device.id }}</td>
+              <td>{{ device.name }}</td>
+              {% if device.remote_state %}
+                  <td><input id="{{ device.id }}" checked type="checkbox" data-toggle="toggle" onchange="change_state({{ device.id }})"></td>
+              {% else %}
+                  <td><input id="{{ device.id }}" type="checkbox" data-toggle="toggle" onchange="change_state({{ device.id }})"></td>
+              {% endif %}
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
+
+{% block tail_js %}
+{{ super() }}
+ <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+
+
+ <script>
+
+    // Funcion que realiza el post cuando cambiamos el estado del switch
+    function change_state (id_device) {
+      //alert(id_asset + "---" + id_device);
+      console.log($("#" + id_device).prop('checked'));
+
+      $.ajax({
+        url: 'https://' + document.domain + '/api/v1/task',
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({ "id": id_device, "state": $("#" + id_device).prop('checked') }),
+        success: function(data, status, jqXHR){
+
+           if ($("#" + id_device).prop('checked')) {
+              var win = window.open('https://' + document.domain + '/', '_blank');
+              var win = window.open('https://' + document.domain + '/ssh/', '_blank');
+              win.focus();
+           }
+
+
+
+        },
+      error: function(jqXHR, status, errorThrown){
+      }
+})
+
+    }
+
+
+ </script>
+{% endblock %}

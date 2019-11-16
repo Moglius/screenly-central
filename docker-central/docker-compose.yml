@@ -1,0 +1,44 @@
+version: "2.1"
+services:
+  webssh:
+    container_name: webssh
+    image: snsyzb/webssh
+    ports:
+      - "8080:8080"
+    network_mode: "host"
+  db:
+    container_name: db
+    image: mysql:5.7
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --execute \"SHOW DATABASES;\""
+      timeout: 20s
+      interval: 2s
+      retries: 10
+    ports:
+      - "33306:3306"
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=screenly
+      - MYSQL_USER=screenly
+      - MYSQL_PASSWORD=screenly
+    volumes:
+      - ./db:/var/lib/mysql
+  docker-screenly-central:
+    container_name: docker-screenly-central
+    image: docker-screenly-central
+    depends_on:
+      db:
+        condition: service_healthy
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode: "host"
+    privileged: true
+    volumes:
+      - $PWD:/usr/src/screen-central
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=screenly
+      - MYSQL_PASSWORD=screenly
+      - MYSQL_DB=screenly

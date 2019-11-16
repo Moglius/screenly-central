@@ -1,0 +1,12 @@
+version: "2"
+services:
+  docker-screenly-central:
+    container_name: docker-screenly-central
+    image: docker-screenly-central
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode: "host"
+    privileged: true
+    volumes:
+      - $PWD:/usr/src/screen-central

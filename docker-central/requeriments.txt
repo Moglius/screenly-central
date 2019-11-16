@@ -1,0 +1,8 @@
+requests
+flask
+flask_restful
+flask_sqlalchemy
+flask_marshmallow
+flask_admin
+marshmallow-sqlalchemy
+mysqlclient

@@ -1,0 +1,21 @@
+version: "2"
+services:
+  docker-screenly:
+    container_name: docker-screnly
+    image: docker-screnly
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode: "host"
+    privileged: true
+    environment:
+      - UUID=4c8580a4-4639-441a-a0da-694e96283ec3
+      - DOWN_URL=https://screenly-central.your_domain/
+      - API_URL=https://screenly-central.your_domain/api/v1/
+      - HOST_SSH=remote-console-screenly.your_domain
+      - USR_DOWN=nn
+      - PASS_DOWN=QwertyX.123
+      - USR_API=nn
+      - PASS_API=QwertyW.123
+    volumes:
+      - $PWD:/usr/src/screen
