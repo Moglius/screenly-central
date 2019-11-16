@@ -7,6 +7,7 @@ Screenly Central Management (Python FLASK app)
 
 - `Central Administration`
 - `Activate/deactivate Assets`
+- `Upload videos`
 - `Connection like Cloud/IoT (not VPN)`
 - `Reverse web SSH shell`
 - `Reverse web GUI shell`
