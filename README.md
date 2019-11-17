@@ -48,6 +48,7 @@ Screenly Central Management (Python FLASK app)
 ## Limitations & considerations:
 
 - `Only videos can upload from the central web gui`
+- `The app not implement the upload, only scan a directory in the host`
 - `Reverse SSH/GUI shell use a public key infra to generate the tunnel`
 - `All Request use basic Auth from nginx/apache config, the application itself not implement any kind of authentication`
 - `All Connection are genereted from the IoT devices to the central manament app`
