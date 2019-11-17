@@ -6,6 +6,8 @@ Screenly Central Management (Python FLASK app)
 ## Features:
 
 - `Central Administration`
+- `Admin WebGUI (Flask Admin module)`
+- `REST API for the connection (IOT-like) of screenly devices`
 - `Activate/deactivate Assets`
 - `Upload videos`
 - `Connection like Cloud/IoT (not VPN)`
