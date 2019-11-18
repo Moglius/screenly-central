@@ -1,5 +1,5 @@
 # Screenly-central
-Screenly Central Management (Python FLASK app) to manage all yours screenly devices without any kind of VPN solutions. All connections are generated from the Raspberry Pi devices to the central app consuming the REST API.
+Screenly Central Management app (Python FLASK) to manage all yours screenly devices without any kind of VPN solutions. All connections are generated from the Raspberry Pi devices to the central app consuming the REST API.
 
 All the software is implemented with docker and docker-compose file to facilitate the instalation process. 
 
